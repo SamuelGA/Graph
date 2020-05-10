@@ -1,8 +1,6 @@
 
 from graphs.gilbert_graph import GilbertGraph
 
-gilbert = GilbertGraph(10, 0.6)
+gilbert = GilbertGraph(1000, 0.05)
 
-gilbert.print()
-
-gilbert.shortestPath(3, 2)
+print(gilbert.averagePathSize(100))
