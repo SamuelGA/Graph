@@ -4,23 +4,30 @@ import scipy.special
 class Graph:
     graph = []
 
-    def print(self):
-        for i in range(0, len(self.graph)):
-            print(self.graph[i])
 
     def averagePathSize(self, size):
         sum = 0
+        n = 0
         for i in range(0, size):
-            randomA = randint(0, len(self.graph))
-            randomB = randint(0, len(self.graph))
+            randomA = randint(0, len(self.graph) - 1)
+            randomB = randint(0, len(self.graph) - 1)
             while randomA == randomB:
-                randomB = random.randint(0, len(self.graph))
+                randomB = randint(0, len(self.graph) - 1)
 
-            breadSearchResult = self.breadthFirstSearch(randomA, randomB)
-            if breadSearchResult > 0:
-                sum += breadSearchResult
-        print(sum/size)
-        return sum/size
+            breadth_search_result = self.breadthFirstSearch(randomA, randomB)
+
+            if breadth_search_result > 0:
+                sum += breadth_search_result
+                n += 1
+        if n == 0:
+            return 0
+        return sum/n
+
+    def average_grade(self):
+        average = 0
+        for node in self.graph:
+            average += len(node)
+        return average / len(self.graph)
 
     def breadthFirstSearch(self, start, goal):
         explored = []
@@ -29,7 +36,7 @@ class Graph:
         if start == goal:
             return -1
         while queue:
-            path = queue.pop()
+            path = queue.pop(0)
             node = path[-1]
 
             if node not in explored:
@@ -44,11 +51,33 @@ class Graph:
                 explored.append(node)
         return -1
 
-    def clusteringCoeffizient(self):
+    def clustering_coefficient(self):
         for i in range(0, len(self.graph)):
             neighbours = self.graph[i]
             grade = len(neighbours)
-            possibleEdges = scipy.special.binom(grade, 2)
-            actualEdges = 0
+            possible_edges = scipy.special.binom(grade, 2)
+            actual_edges = 0
+            checked_neighbours = []
+            clustering_coefficient = 0
+
+            # check all neighbour connections
             for neighbour in neighbours:
-                self.graph[neighbour]
+                neighbours_neighbours = self.graph[neighbour].copy()
+
+                # remove already checked neighbours
+                for same_neighbour in self.intersection(neighbours_neighbours, checked_neighbours):
+                    neighbours_neighbours.remove(same_neighbour)
+                same_neighbours = list(set(neighbours_neighbours) & set(self.graph[i]))
+                checked_neighbours.append(neighbour)
+                actual_edges += len(same_neighbours)
+            clustering_coefficient += (possible_edges / actual_edges) / len(self.graph)
+            return clustering_coefficient
+
+    # Python program to illustrate the intersection
+    # of two lists in most simple way
+    def intersection(self, lst1, lst2):
+        lst3 = [value for value in lst1 if value in lst2]
+        return lst3
+
+        # Driver Code
+

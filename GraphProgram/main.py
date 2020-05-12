@@ -1,6 +1,21 @@
 
 from graphs.gilbert_graph import GilbertGraph
+from plotter.plot import Plotter
 
-gilbert = GilbertGraph(1000, 0.05)
+results = []
 
-print(gilbert.averagePathSize(100))
+gilbert = GilbertGraph(100, 0.05)
+print(gilbert.graph)
+print(gilbert.average_grade())
+plotter = Plotter()
+plotter.plot_network(gilbert.graph)
+
+
+
+
+
+
+
+
+
+
