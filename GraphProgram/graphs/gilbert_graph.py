@@ -4,6 +4,21 @@ import scipy.special
 
 
 class GilbertGraph(Graph):
+
+    def __init__(self, n, p):
+        for i in range(0, n):
+            self.graph.insert(i, [])
+        for i in range(0, n):
+            for k in range(0, i):
+                random_number = randint(0, 10000)
+                p_scalar = p * 10000
+                if p_scalar > random_number:
+                    self.graph[i].append(k)
+                    self.graph[k].append(i)
+
+
+# fast graph generation
+''' 
     def __init__(self, n, p):
 
         # init graph
@@ -23,6 +38,9 @@ class GilbertGraph(Graph):
                 self.graph[random_b].append(random_a)
             else:
                 i = i - 1
+'''
+
+
 
 
 

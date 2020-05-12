@@ -52,13 +52,13 @@ class Graph:
         return -1
 
     def clustering_coefficient(self):
+        average_clustering_coefficient = 0
         for i in range(0, len(self.graph)):
             neighbours = self.graph[i]
             grade = len(neighbours)
             possible_edges = scipy.special.binom(grade, 2)
             actual_edges = 0
             checked_neighbours = []
-            clustering_coefficient = 0
 
             # check all neighbour connections
             for neighbour in neighbours:
@@ -70,8 +70,10 @@ class Graph:
                 same_neighbours = list(set(neighbours_neighbours) & set(self.graph[i]))
                 checked_neighbours.append(neighbour)
                 actual_edges += len(same_neighbours)
-            clustering_coefficient += (possible_edges / actual_edges) / len(self.graph)
-            return clustering_coefficient
+
+            if actual_edges > 0:
+                average_clustering_coefficient += (possible_edges / actual_edges) / len(self.graph)
+        return average_clustering_coefficient
 
     # Python program to illustrate the intersection
     # of two lists in most simple way
