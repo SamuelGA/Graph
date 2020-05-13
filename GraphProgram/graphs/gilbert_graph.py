@@ -1,6 +1,5 @@
 from random import *
 from graphs.graph import Graph
-import scipy.special
 
 
 class GilbertGraph(Graph):

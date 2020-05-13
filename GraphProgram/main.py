@@ -1,14 +1,14 @@
 
 from graphs.gilbert_graph import GilbertGraph
+from graphs.watts_strogatz_graph import WattsStrogatzGraph
 from plotter.plot import Plotter
 
-gilbert = GilbertGraph(1000, 0.04)
-print(gilbert.graph)
-print(gilbert.average_grade())
-print(gilbert.averagePathSize(100))
-print(gilbert.clustering_coefficient())
+
 
 plotter = Plotter()
+
+gilbert = GilbertGraph(100, 0.999)
+print(gilbert.clustering_coefficient())
 plotter.plot_network(gilbert.graph)
 
 

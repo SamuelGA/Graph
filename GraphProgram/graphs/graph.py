@@ -53,6 +53,7 @@ class Graph:
 
     def clustering_coefficient(self):
         average_clustering_coefficient = 0
+        n = 0
         for i in range(0, len(self.graph)):
             neighbours = self.graph[i]
             grade = len(neighbours)
@@ -72,8 +73,9 @@ class Graph:
                 actual_edges += len(same_neighbours)
 
             if actual_edges > 0:
-                average_clustering_coefficient += (possible_edges / actual_edges) / len(self.graph)
-        return average_clustering_coefficient
+                average_clustering_coefficient += actual_edges / possible_edges
+                n += 1
+        return average_clustering_coefficient / n
 
     # Python program to illustrate the intersection
     # of two lists in most simple way
