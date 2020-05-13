@@ -42,11 +42,11 @@ class Graph:
             if node not in explored:
                 neighbours = self.graph[node]
                 for neighbour in neighbours:
+                    if neighbour == goal:
+                        return len(path)
                     new_path = list(path)
                     new_path.append(neighbour)
                     queue.append(new_path)
-                    if neighbour == goal:
-                        return len(new_path)
 
                 explored.append(node)
         return -1

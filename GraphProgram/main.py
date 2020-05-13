@@ -7,9 +7,11 @@ from plotter.plot import Plotter
 
 plotter = Plotter()
 
-gilbert = GilbertGraph(100, 0.999)
-print(gilbert.clustering_coefficient())
+gilbert = GilbertGraph(5, 0.6)
 plotter.plot_network(gilbert.graph)
+print(gilbert.averagePathSize(10))
+print(gilbert.clustering_coefficient())
+
 
 
 
