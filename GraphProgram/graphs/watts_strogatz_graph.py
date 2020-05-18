@@ -1,5 +1,5 @@
 from graphs.graph import Graph
-
+from random import *
 
 class WattsStrogatzGraph(Graph):
 
@@ -8,5 +8,9 @@ class WattsStrogatzGraph(Graph):
             self.graph.insert(i, [])
         for i in range(0, n):
             for j in range(0, k):
-                self.graph[i].append((i + j) % n)
+                random = randint(0, 100000)
+                if random < p * 100000:
+                    self.graph[i].append(randint(0,n - 1))
+                else:
+                    self.graph[i].append((i + j) % n)
         print(self.graph)

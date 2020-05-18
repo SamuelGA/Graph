@@ -55,28 +55,30 @@ class Graph:
         average_clustering_coefficient = 0
         n = 0
         for i in range(0, len(self.graph)):
-            neighbours = self.graph[i]
-            grade = len(neighbours)
-            possible_edges = scipy.special.binom(grade, 2)
+            neigbours = self.graph[i]
+
             actual_edges = 0
             checked_neighbours = []
-
-            # check all neighbour connections
-            for neighbour in neighbours:
-                neighbours_neighbours = self.graph[neighbour].copy()
+            for neigbour in neigbours:
+                same = list(set(self.graph[neigbour]) & set(neigbours))
 
                 # remove already checked neighbours
-                for same_neighbour in self.intersection(neighbours_neighbours, checked_neighbours):
-                    neighbours_neighbours.remove(same_neighbour)
-                same_neighbours = list(set(neighbours_neighbours) & set(self.graph[i]))
-                checked_neighbours.append(neighbour)
-                actual_edges += len(same_neighbours)
+                for checked_neighbour in checked_neighbours:
+                    if checked_neighbour in same:
+                        same.remove(checked_neighbour)
 
-            if actual_edges > 0:
-                average_clustering_coefficient += actual_edges / possible_edges
-                n += 1
-        return average_clustering_coefficient / n
+                if len(same) > 0:
+                    actual_edges += len(same)
+                checked_neighbours.append(neigbour)
 
+            possible_edges = scipy.special.binom(len(neigbours), 2)
+
+            if possible_edges > 0:
+                clustering_coefficient = actual_edges / possible_edges
+                average_clustering_coefficient += clustering_coefficient
+
+        average_clustering_coefficient = average_clustering_coefficient / len(self.graph)
+        return average_clustering_coefficient
     # Python program to illustrate the intersection
     # of two lists in most simple way
     def intersection(self, lst1, lst2):

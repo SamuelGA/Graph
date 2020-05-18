@@ -4,16 +4,10 @@ from graphs.watts_strogatz_graph import WattsStrogatzGraph
 from plotter.plot import Plotter
 
 
-
-plotter = Plotter()
-
-gilbert = GilbertGraph(5, 0.6)
-plotter.plot_network(gilbert.graph)
-print(gilbert.averagePathSize(10))
+gilbert = GilbertGraph(10000, 0.01)
+print(gilbert.graph)
+print(gilbert.average_grade())
 print(gilbert.clustering_coefficient())
-
-
-
 
 
 
